@@ -5,7 +5,7 @@ A simple module that will reorder a json keys in alphabetical order
 ## Install
 
 ```powershell
-Install-Module IDMCmdlets -Force
+Install-Module SortJson -Force
 ```
 
 ## Cmdlets
