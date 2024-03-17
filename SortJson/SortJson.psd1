@@ -113,7 +113,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'https://github.com/PowerShellCrack/PSSortJsonModule/blob/main/CHANGELOG.md'
+        ReleaseNotes = 'https://raw.githubusercontent.com/PowerShellCrack/PSSortJsonModule/main/SortJson/CHANGELOG.md'
 
         # Prerelease string of this module
         # Prerelease = ''
