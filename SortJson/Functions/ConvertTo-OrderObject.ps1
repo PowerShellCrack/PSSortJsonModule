@@ -101,7 +101,7 @@ function ConvertTo-OrderObject {
                     #recursivly call the function to sort the properties that are arrays or objects, then update the property
                     If( ($Recursive -eq $true) -and ($SortAlphabetically -eq $true) )
                     {
-                        $JsonProperty = Get-ObjectPropertyOrder -Object $JsonObj -Property $Property
+                        $JsonProperty = Set-ObjectPropertyOrder -Object $JsonObj -Property $Property
 
                         Write-Verbose ("{0} :: Adding property value: {1}" -f ${CmdletName}, $JsonProperty.Tostring())
                         $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonProperty -Force
@@ -130,7 +130,7 @@ function ConvertTo-OrderObject {
                     #recursivly call the function to sort the properties that are arrays or objects, then update the property
                     If( ($Recursive -eq $true) -and ($SortAlphabetically -eq $true) )
                     {
-                        $JsonProperty = Get-ObjectPropertyOrder -Object $JsonObj -Property $Property
+                        $JsonProperty = Set-ObjectPropertyOrder -Object $JsonObj -Property $Property
 
                         Write-Verbose ("{0} :: Adding property value: {1}" -f ${CmdletName}, $JsonProperty.Tostring())
                         $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonProperty -Force
@@ -158,7 +158,7 @@ function ConvertTo-OrderObject {
                     #recursivly call the function to sort the properties that are arrays or objects, then update the property
                     If( ($Recursive -eq $true) -and ($SortAlphabetically -eq $true) )
                     {
-                        $JsonProperty = Get-ObjectPropertyOrder -Object $JsonObj -Property $Property
+                        $JsonProperty = Set-ObjectPropertyOrder -Object $JsonObj -Property $Property
 
                         Write-Verbose ("{0} :: Adding property value: {1}" -f ${CmdletName}, $JsonProperty.Tostring())
                         $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonProperty -Force

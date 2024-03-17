@@ -9,7 +9,7 @@ Function Set-ObjectPropertyOrder{
     .PARAMETER Property
         Required: [string] The property to sort.
     .EXAMPLE
-        $json | ConvertFrom-Json | Get-ObjectPropertyOrder -Property metadata 
+        $json | ConvertFrom-Json | Set-ObjectPropertyOrder -Property metadata 
     .LINK
         ConvertTo-OrderObject
     #>
