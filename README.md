@@ -18,7 +18,7 @@ Install-Module SortJson -Force
 
 Sort-Json
 
-## Example
+## Example #1
 
 ```powershell
 
@@ -29,10 +29,17 @@ $json = @"
 Write-Host "Original JSON..." -ForegroundColor Green
 $json | ConvertFrom-Json | ConvertTo-Json -Depth 100
 
-#call it from a pipeline
 Write-Host "Sorted JSON using pipeline..." -ForegroundColor Green
 $json | Format-JsonOrder -SortAlphabetically -Recursive
+```
 
-#$test | ConvertTo-Json
+## Example #2
+```powershell
 
+$json = @"
+{"displayName":"A test of json","policyType":"BuiltIn","mode":"Indexed","description":"A test to see if the json get ordered","metadata":{"version":"1.1.0","category":"Ordering"},"parameters":{"effect":{"type":"String","metadata":"@{displayName=Ordering; description=Order or not order that is the question}","allowedValues":"Yes No","defaultValue":"Yes"}},"policyRule":{"if":{"allOf":" "},"then":{"effect":"[parameters('order')]"}},"scopetag":["order","json","default","unorder"]}
+"@
+
+Write-Host "Sorted JSON using pipeline..." -ForegroundColor Green
+$json | Format-JsonOrder -PropertyStartList @('policyType','displayName') -PropertyEndList @('policyRule') -SortAlphabetically -Recursive
 ```
