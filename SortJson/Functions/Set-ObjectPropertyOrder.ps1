@@ -35,7 +35,14 @@ Function Set-ObjectPropertyOrder{
         "Object[]" {
             If($Object.$Property -is [array]){
                 Write-Verbose ("{0} :: Sorting array property: {1}" -f ${CmdletName}, $Property)
-                $PropertyValue = $Object.$Property | Sort-Object
+                #detemine if the frist item in the array is an object or string
+                $PropertyType = ($object.$property | Get-Member) | Select -ExpandProperty TypeName -Unique
+                If( $PropertyType -eq 'System.Management.Automation.PSCustomObject'){
+                    $PropertyValue = $Object.$Property | ConvertTo-OrderObject -SortAlphabetically -Recursive -Verbose:$VerbosePreference
+                }Else{
+                    $PropertyValue = $Object.$Property | Sort-Object
+                }
+
             }Else{
                 Write-Verbose ("{0} :: Sorting object property: {1}" -f ${CmdletName}, $Property)
                 $PropertyValue = $Object.$Property | ConvertTo-OrderObject -SortAlphabetically -Recursive -Verbose:$VerbosePreference
