@@ -1,2 +1,3 @@
 Publish-SortJsonModule.ps1
 *.test.ps1
+.vscode

@@ -21,6 +21,7 @@ Install-Module SortJson -Force
 - **PropertyEndList** : _Optional_: [Array] The list of properties to put at the end of the json object.
 - **OnlyListedProperties** : _Optional_: [switch] Only list the properties that are in the PropertyStartList and PropertyEndList.
 - **SortAlphabetically** : _Optional_: [switch] Sort the properties alphabetically.
+- **IgnoreCaseSensitivity** : _Optional_: [switch] Ignore case sensitive ordering. Case Sensitivity is enabled by default
 - **Recursive** : _Optional_: [switch] Sort the properties that are arrays or objects.
 
 > WARNING: Specifying lists  of properties that do not exist and the _-OnlyListedProperties_ parameter combined will return an empty json
@@ -33,11 +34,12 @@ Sort-Json
 
 |parameter|alias|
 |--|--|
-**-PropertyStartList** | StartList, First
-**-PropertyEndList** | EndList, Last
-**-OnlyListedProperties** | OnlyListed
-**-SortAlphabetically** | Ascending
-**-Recursive** | Recurse
+|**-PropertyStartList** | StartList, First|
+|**-PropertyEndList** | EndList, Last|
+|**-OnlyListedProperties** | OnlyListed|
+|**-SortAlphabetically** | Ascending|
+|**-IgnoreCaseSensitivity** | CaseInSensitive|
+|**-Recursive** | Recurse|
 
 ## Example #1
 

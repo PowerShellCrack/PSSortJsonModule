@@ -14,6 +14,8 @@ Function Format-JsonOrder {
         Optional: Only list the properties that are in the PropertyStartList and PropertyEndList.
     .PARAMETER SortAlphabetically
         Optional: Sort the properties alphabetically.
+    .PARAMETER IgnoreCaseSensitivity
+        Optional: Ignore casesentive ordering.
     .PARAMETER Recursive
         Optional: Sort the properties that are arrays or objects.
     .EXAMPLE
@@ -32,20 +34,24 @@ Function Format-JsonOrder {
         $Json,
 
         [Parameter(Mandatory = $false)]
-        [Alias('StartList','First')]
+        [Alias('StartList')]
         [string[]]$PropertyStartList,
 
         [Parameter(Mandatory = $false)]
-        [Alias('EndList','Last')]
+        [Alias('EndList')]
         [string[]]$PropertyEndList,
 
         [Parameter(Mandatory = $false)]
         [Alias('OnlyListed')]
         [switch]$OnlyListedProperties,
-        
+
         [Parameter(Mandatory = $false)]
         [Alias('Ascending')]
         [switch]$SortAlphabetically,
+
+        [Parameter(Mandatory = $false)]
+        [Alias('CaseInSensitive')]
+        [switch]$IgnoreCaseSensitivity,
 
         [Parameter(Mandatory = $false)]
         [Alias('Recurse')]
@@ -68,7 +74,7 @@ Function Format-JsonOrder {
                 Write-Verbose ("{0} :: Using an object..." -f ${CmdletName})
                 $JsonObj = $JsonItem
             }
-            
+
             $Params = @{
                 Object = $JsonObj
             }
@@ -89,10 +95,15 @@ Function Format-JsonOrder {
                 $Params.SortAlphabetically = $true
             }
 
+            If($IgnoreCaseSensitivity -eq $true){
+                $Params.IgnoreCaseSensitivity = $true
+            }
+
             If($Recursive -eq $true){
                 $Params.Recursive = $true
             }
 
+            Write-Debug ("{0} :: Params: {1}" -f ${CmdletName}, ($Params | Out-String))
             $jsonList += ConvertTo-OrderObject @Params
         }
     }

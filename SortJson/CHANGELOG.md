@@ -1,5 +1,10 @@
 # Change log for SortJson
 
+## 1.0.4 March 18, 2024
+
+- Enforced CaseSensitivity on arrays and objects. Added parameter to Ignore case
+- Fixed PSScriptAnalyzer problems. Removed empty spaces.
+
 ## 1.0.3 March 18, 2024
 
 - Add the ability to check for objects within array for ordering
