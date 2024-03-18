@@ -32,18 +32,23 @@ Function Format-JsonOrder {
         $Json,
 
         [Parameter(Mandatory = $false)]
+        [Alias('StartList','First')]
         [string[]]$PropertyStartList,
 
         [Parameter(Mandatory = $false)]
+        [Alias('EndList','Last')]
         [string[]]$PropertyEndList,
 
         [Parameter(Mandatory = $false)]
+        [Alias('OnlyListed')]
         [switch]$OnlyListedProperties,
-
+        
         [Parameter(Mandatory = $false)]
+        [Alias('Ascending')]
         [switch]$SortAlphabetically,
 
         [Parameter(Mandatory = $false)]
+        [Alias('Recurse')]
         [switch]$Recursive
     )
     Begin{
