@@ -4,8 +4,8 @@ function ConvertTo-OrderObject {
         Sorts JSON output.
     .DESCRIPTION
         Reformats a JSON string so the output looks better than what ConvertTo-Json outputs.
-    .PARAMETER Json
-        Required: [string] The JSON text to sort.
+    .PARAMETER InputObject
+        Required: [Object] The JSON text to sort.
     .PARAMETER ReSorted
         Optional: ReSorted the json properties to the Sorted specified in the PropertyStartList and PropertyEndList parameters.
     .PARAMETER PropertyStartList
@@ -30,7 +30,8 @@ function ConvertTo-OrderObject {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true)]
-        $Object,
+        [Alias('Json','Object')]
+        $InputObject,
 
         [Parameter(Mandatory = $false)]
         [string[]]$PropertyStartList,
@@ -54,7 +55,8 @@ function ConvertTo-OrderObject {
         $ObjList = @()
     }
     Process{
-        Foreach($JsonObj in $Object)
+        #TEST $JsonObj = $Json | ConvertFrom-Json
+        Foreach($JsonObj in $InputObject)
         {
 
             #only sort properties that are in the json object
@@ -67,7 +69,7 @@ function ConvertTo-OrderObject {
                     }
                 }
 
-                Write-Verbose ("{0} :: Property Start List: {1}" -f ${CmdletName}, ($NewPropertyStartList -join ", "))
+                Write-Verbose ("{0} ---> Property Start List: {1}" -f ${CmdletName}, ($NewPropertyStartList -join ", "))
             }
 
             If($PropertyEndList.Count -gt 0){
@@ -79,14 +81,14 @@ function ConvertTo-OrderObject {
                     }
                 }
 
-                Write-Verbose ("{0} :: Property End List: {1}" -f ${CmdletName}, ($NewPropertyEndList -join ", "))
+                Write-Verbose ("{0} ---> Property End List: {1}" -f ${CmdletName}, ($NewPropertyEndList -join ", "))
             }
 
             If(($NewPropertyStartList.Count + $NewPropertyEndList.Count) -eq 0){
-                Write-Verbose ("{0} :: Properties found: {1}" -f ${CmdletName}, ($JsonObj.PSObject.Properties.Name -join ", "))
+                Write-Verbose ("{0} ---> Properties found: {1}" -f ${CmdletName}, ($JsonObj.PSObject.Properties.Name -join ", "))
             }Else{
                 $RemainingProperties = ($JsonObj | Select-Object -ExcludeProperty ($NewPropertyStartList + $NewPropertyEndList)).PSObject.Properties.Name
-                Write-Verbose ("{0} :: Remaining properties found: {1}" -f ${CmdletName}, ($RemainingProperties -join ", "))
+                Write-Verbose ("{0} ---> Remaining properties found: {1}" -f ${CmdletName}, ($RemainingProperties -join ", "))
             }
 
 
@@ -103,7 +105,7 @@ function ConvertTo-OrderObject {
                 ForEach($Property in $NewPropertyStartList)
                 {
                     $f++
-                    Write-Verbose ("{0} :: Adding first property set [{1} of {2}]: {3}" -f ${CmdletName}, $f,$NewPropertyEndList.count,$Property)
+                    Write-Verbose ("{0} ---> Adding first property set [{1} of {2}]: {3}" -f ${CmdletName}, $f,$NewPropertyEndList.count,$Property)
 
                     #add the property to the new object
                     $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonObj.$Property -Force
@@ -113,11 +115,17 @@ function ConvertTo-OrderObject {
                     {
                         $JsonProperty = Set-ObjectPropertyOrder -Object $JsonObj -Property $Property -IgnoreCaseSensitivity:$IgnoreCaseSensitivity
 
-                        Write-Verbose ("{0} :: Adding property value: {1}" -f ${CmdletName}, $JsonProperty.Tostring())
-                        $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonProperty -Force
+                        If($null -eq $JsonProperty){
+                            Write-Verbose ("{0} ---> Adding property value: {1}" -f ${CmdletName}, 'Null array')
+                            $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value @() -Force
+
+                        }Else{
+                            Write-Verbose ("{0} ---> Adding property value: {1}" -f ${CmdletName}, $JsonProperty.Tostring())
+                            $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonProperty -Force
+                        }
 
                     }Else{
-                        Write-Verbose ("{0} :: Adding remaining property: {1}" -f ${CmdletName}, $Property)
+                        Write-Verbose ("{0} ---> Adding remaining property: {1}" -f ${CmdletName}, $Property)
                         $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonObj.$Property -Force
                     }
                 }
@@ -135,6 +143,7 @@ function ConvertTo-OrderObject {
                     $PropertyMiddleList = $PropertyMiddleList.PSObject.Properties.Name
                 }
 
+                
                 ForEach($Property in $PropertyMiddleList)
                 {
                     #recursivly call the function to sort the properties that are arrays or objects, then update the property
@@ -142,11 +151,17 @@ function ConvertTo-OrderObject {
                     {
                         $JsonProperty = Set-ObjectPropertyOrder -Object $JsonObj -Property $Property -IgnoreCaseSensitivity:$IgnoreCaseSensitivity
 
-                        Write-Verbose ("{0} :: Adding property value: {1}" -f ${CmdletName}, $JsonProperty.Tostring())
-                        $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonProperty -Force
+                        If($null -eq $JsonProperty){
+                            Write-Verbose ("{0} ---> Adding property value: {1}" -f ${CmdletName}, 'Null array')
+                            $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value @() -Force
+
+                        }Else{
+                            Write-Verbose ("{0} ---> Adding property value: {1}" -f ${CmdletName}, $JsonProperty.Tostring())
+                            $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonProperty -Force
+                        }
 
                     }Else{
-                        Write-Verbose ("{0} :: Adding remaining property: {1}" -f ${CmdletName}, $Property)
+                        Write-Verbose ("{0} ---> Adding remaining property: {1}" -f ${CmdletName}, $Property)
                         $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonObj.$Property -Force
                     }
                 }
@@ -160,7 +175,7 @@ function ConvertTo-OrderObject {
                 Foreach($Property in $NewPropertyEndList)
                 {
                     $l++
-                    Write-Verbose ("{0} :: Adding last property set [{1} of {2}]: {3}" -f ${CmdletName}, $l,$NewPropertyEndList.count,$Property)
+                    Write-Verbose ("{0} ---> Adding last property set [{1} of {2}]: {3}" -f ${CmdletName}, $l,$NewPropertyEndList.count,$Property)
 
                     #add the property to the new object
                     $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonObj.$Property -Force
@@ -170,26 +185,31 @@ function ConvertTo-OrderObject {
                     {
                         $JsonProperty = Set-ObjectPropertyOrder -Object $JsonObj -Property $Property -IgnoreCaseSensitivity:$IgnoreCaseSensitivity
 
-                        Write-Verbose ("{0} :: Adding property value: {1}" -f ${CmdletName}, $JsonProperty.Tostring())
-                        $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonProperty -Force
+                        If($null -eq $JsonProperty){
+                            Write-Verbose ("{0} ---> Adding property value: {1}" -f ${CmdletName}, 'Null array')
+                            $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value @() -Force
+
+                        }Else{
+                            Write-Verbose ("{0} ---> Adding property value: {1}" -f ${CmdletName}, $JsonProperty.Tostring())
+                            $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonProperty -Force
+                        }
 
                     }Else{
-                        Write-Verbose ("{0} :: Adding remaining property: {1}" -f ${CmdletName}, $Property)
+                        Write-Verbose ("{0} ---> Adding remaining property: {1}" -f ${CmdletName}, $Property)
                         $SortedObj | Add-Member -MemberType NoteProperty -Name $Property -Value $JsonObj.$Property -Force
                     }
                 }
 
             }
-        }
-
-        #add the sorted json to the list
-        #$ObjList += ($SortedObj | ConvertTo-Json) -replace '\\"','"' -replace '\\r\\n','' -replace '"{','{' -replace '}"','}'
-        Write-Verbose ("{0} :: Collecting objects..." -f ${CmdletName})
-        $ObjList += $SortedObj
-        #$ObjList += ($SortedObj | ConvertTo-Json)
+            
+            #add the sorted json to the list
+            #$ObjList += ($SortedObj | ConvertTo-Json) -replace '\\"','"' -replace '\\r\\n','' -replace '"{','{' -replace '}"','}'
+            Write-Verbose ("{0} ---> Collecting [{1}] objects" -f ${CmdletName},$SortedObj.count)
+            $ObjList += $SortedObj
+            #$ObjList += ($SortedObj | ConvertTo-Json)
+        }        
     }
     End{
-        Write-Verbose ("{0} :: Returning object..." -f ${CmdletName})
         return $ObjList
     }
 

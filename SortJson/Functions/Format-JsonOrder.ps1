@@ -4,8 +4,8 @@ Function Format-JsonOrder {
         Sorts JSON output.
     .DESCRIPTION
         Reformats a JSON string so the output looks better than what ConvertTo-Json outputs.
-    .PARAMETER Json
-        Required: [string] The JSON text to sort.
+    .PARAMETER InputObject
+        Required: The JSON text to sort. Can be object or json string
     .PARAMETER PropertyStartList
         Optional: The list of properties to put at the start of the json object.
     .PARAMETER PropertyEndList
@@ -31,6 +31,7 @@ Function Format-JsonOrder {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true)]
+        [Alias('InputObject')]
         $Json,
 
         [Parameter(Mandatory = $false)]
@@ -67,11 +68,11 @@ Function Format-JsonOrder {
 
         Foreach($JsonItem in $Json)
         {
-            If($Json -is [string]){
-                Write-Verbose ("{0} :: Converting json to object..." -f ${CmdletName})
+            If($JsonItem -is [string]){
+                Write-Verbose ("{0} --------> Converting json to object..." -f ${CmdletName})
                 $JsonObj = ($JsonItem | ConvertFrom-Json)
             }Else{
-                Write-Verbose ("{0} :: Using an object..." -f ${CmdletName})
+                Write-Verbose ("{0} --------> Using an object..." -f ${CmdletName})
                 $JsonObj = $JsonItem
             }
 
@@ -103,11 +104,12 @@ Function Format-JsonOrder {
                 $Params.Recursive = $true
             }
 
-            Write-Debug ("{0} :: Params: {1}" -f ${CmdletName}, ($Params | Out-String))
+            Write-Debug ("{0} ----------> Used Params: {1}" -f ${CmdletName}, ($Params | Out-String))
             $jsonList += ConvertTo-OrderObject @Params
         }
     }
     End{
+        Write-Verbose ("{0} --------> Returning json:" -f ${CmdletName})
         return $jsonList | ConvertTo-Json -Depth 100
     }
 }

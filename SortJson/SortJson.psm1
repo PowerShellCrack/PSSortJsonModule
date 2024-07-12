@@ -1,5 +1,8 @@
-$ModuleRoot = Split-Path -Path $MyInvocation.MyCommand.Path
+$ModuleRoot = ($PWD.ProviderPath, $PSScriptRoot)[[bool]$PSScriptRoot]
 
-Resolve-Path "$ModuleRoot\Functions\*.ps1" | ForEach-Object -Process {
-. $_.ProviderPath
+$fileList = (Get-ChildItem -Path "$ModuleRoot\Functions" -Filter '*.ps1')
+
+foreach ($file in $fileList  ) {
+    Write-Verbose "Loading $($file.FullName)"
+    . $file.FullName
 }

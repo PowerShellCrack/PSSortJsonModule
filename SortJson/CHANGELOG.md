@@ -1,5 +1,11 @@
 # Change log for SortJson
 
+## 1.0.5 July 12, 2024
+
+- Fixed issue with null arrays being removed and stops sorting json. Thanks @kaiaschulz
+- Updated verbose and debug outputs; cleaned up. 
+- Used best practice for object; set params to: inputObject
+
 ## 1.0.4 March 18, 2024
 
 - Enforced CaseSensitivity on arrays and objects. Added parameter to Ignore case

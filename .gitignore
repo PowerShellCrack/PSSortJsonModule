@@ -1,3 +1,5 @@
 Publish-SortJsonModule.ps1
-*.test.ps1
+!/Tests/
+/Tests/*
+*.tests.ps1
 .vscode
