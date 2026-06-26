@@ -1,0 +1,7 @@
+{
+    "version": "1.0",
+    "name": "shortSample",
+    "enabled": true,
+    "count": 3,
+    "description": "A small flat object"
+}

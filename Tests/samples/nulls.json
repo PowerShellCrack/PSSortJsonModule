@@ -1,0 +1,52 @@
+{
+    "dataSourceDetails": {
+        "initialContextTemplate": "",
+        "headers": [],
+        "resultSelector": "",
+        "requestContent": [],
+        "resourceUrl": "",
+        "requestVerb": [],
+        "dataSourceUrl": "",
+        "dataSourceName": "TestConnection",
+        "parameters": []
+    },
+    "resultTransformationDetails": {
+        "callbackContextTemplate": "",
+        "resultTemplate": "",
+        "callbackRequiredTemplate": ""
+    },
+    "serviceEndpointDetails": {
+        "isReady": false,
+        "serviceManagementReference": [],
+        "id": "c7dcfd0c-785c-44af-8faa-caa846a3d042",
+        "modifiedBy": {
+            "displayName": [],
+            "id": []
+        },
+        "isShared": false,
+        "owner": "library",
+        "type": "azurerm",
+        "serviceEndpointProjectReferences": [],
+        "name": "loremipsum",
+        "description": "loremipsum",
+        "data": {
+            "environment": "AzureCloud",
+            "managementGroupName": null,
+            "identityType": "AppRegistrationManual",
+            "scopeLevel": "ManagementGroup",
+            "managementGroupId": "ee95c10d-7fa2-49b8-9b59-5ed31360746a",
+            "creationMode": "Manual"
+        },
+        "url": "https://management.azure.com/",
+        "authorization": {
+            "parameters": {
+                "tenantid": "ee95c10d-7fa2-49b8-9b59-5ed31360746a",
+                "workloadIdentityFederationIssuer": "https://vstoken.dev.azure.com/c0ea1e23-772f-4acb-8d03-a62ff755fb5e",
+                "serviceprincipalid": "a6b5a7e3-22d7-4143-93fd-4922d6ec08a3",
+                "workloadIdentityFederationSubject": "sc://organization/project/loremipsum"
+            },
+            "scheme": "WorkloadIdentityFederation"
+        },
+        "isOutdated": false
+    }
+}

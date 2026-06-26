@@ -1,0 +1,48 @@
+{
+    "stringArray": [
+        "delta",
+        "alpha",
+        "charlie",
+        "bravo"
+    ],
+    "numberArray": [
+        5,
+        1,
+        4,
+        2,
+        3
+    ],
+    "objectArray": [
+        {
+            "name": "zeta",
+            "id": 3
+        },
+        {
+            "name": "alpha",
+            "id": 1
+        },
+        {
+            "name": "mike",
+            "id": 2
+        }
+    ],
+    "arrayWithNulls": [
+        null,
+        {
+            "second": 2,
+            "first": 1
+        },
+        null
+    ],
+    "emptyArray": [],
+    "nestedArrays": [
+        [
+            "y",
+            "x"
+        ],
+        [
+            "b",
+            "a"
+        ]
+    ]
+}

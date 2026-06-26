@@ -1,0 +1,38 @@
+{
+    "zeta": {
+        "yankee": {
+            "xray": {
+                "whiskey": {
+                    "victor": {
+                        "uniform": "deep-value",
+                        "tango": [
+                            {
+                                "sierra": 3,
+                                "romeo": 2,
+                                "quebec": 1
+                            },
+                            {
+                                "papa": "b",
+                                "oscar": "a"
+                            }
+                        ],
+                        "november": {
+                            "mike": false,
+                            "lima": null,
+                            "kilo": 42
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "alpha": {
+        "charlie": "c",
+        "bravo": "b",
+        "delta": {
+            "golf": [],
+            "foxtrot": "f",
+            "echo": "e"
+        }
+    }
+}

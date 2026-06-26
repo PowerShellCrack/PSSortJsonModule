@@ -1,5 +1,13 @@
 # Change log for SortJson
 
+## 1.0.6 June 26, 2026
+
+- Fixed crash when a property value is `null` (eg. `"setting": null`); `Set-ObjectPropertyOrder` no longer calls `.GetType()` on a null value. Thanks @boozeman
+- Preserve genuine `null` values instead of converting them to empty arrays.
+- Pass through `null` elements inside arrays (eg. `[ null, {...} ]`) instead of dropping them or erroring.
+- Fixed error when using `-PropertyStartList`/`-PropertyEndList` individually (null element passed to `Select-Object -ExcludeProperty`).
+- Added Pester 5 test suite (`Tests/SortJson.Tests.ps1`) with sample fixtures covering short, deep, Microsoft Graph, array, null and mixed-case JSON.
+
 ## 1.0.5 July 12, 2024
 
 - Fixed issue with null arrays being removed and stops sorting json. Thanks @kaiaschulz

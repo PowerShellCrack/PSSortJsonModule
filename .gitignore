@@ -3,3 +3,11 @@ Publish-SortJsonModule.ps1
 /Tests/*
 *.tests.ps1
 .vscode
+
+# Keep the Pester suite and sample fixtures tracked (needed for CI)
+!/Tests/SortJson.Tests.ps1
+!/Tests/samples/
+!/Tests/samples/*.json
+
+# But never commit generated test results
+/Tests/testResults.xml

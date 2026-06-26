@@ -1,5 +1,7 @@
 # PSSortJsonModule
 
+[![CI](https://github.com/PowerShellCrack/PSSortJsonModule/actions/workflows/ci.yml/badge.svg)](https://github.com/PowerShellCrack/PSSortJsonModule/actions/workflows/ci.yml)
+
 A simple module that will reorder a json keys in alphabetical order
 
 ## Install

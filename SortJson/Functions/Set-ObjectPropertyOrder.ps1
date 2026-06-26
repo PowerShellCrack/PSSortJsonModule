@@ -39,6 +39,14 @@ Function Set-ObjectPropertyOrder{
     [string]${CmdletName} = $PSCmdlet.MyInvocation.MyCommand.Name
 
     #Write-Verbose ("{0} -> Object type: {1}" -f ${CmdletName}, $InputObject.GetType().Name)
+
+    #handle null property values; calling .GetType() on a null value throws
+    If($null -eq $InputObject.$Property)
+    {
+        Write-Verbose ("{0} -> Adding property: [null] {1}" -f ${CmdletName}, $Property)
+        return $null
+    }
+
     switch($InputObject.$Property.GetType().Name)
     {
         "String" {

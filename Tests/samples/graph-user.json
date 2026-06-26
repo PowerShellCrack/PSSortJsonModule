@@ -1,0 +1,27 @@
+{
+    "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users/$entity",
+    "businessPhones": [
+        "+1 555 0100"
+    ],
+    "displayName": "Lorem Ipsum",
+    "givenName": "Lorem",
+    "jobTitle": null,
+    "mail": "lorem@contoso.com",
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": "en-US",
+    "surname": "Ipsum",
+    "userPrincipalName": "lorem@contoso.com",
+    "id": "c7dcfd0c-785c-44af-8faa-caa846a3d042",
+    "assignedLicenses": [
+        {
+            "disabledPlans": [],
+            "skuId": "6fd2c87f-b296-42f0-b197-1e91e994b900"
+        }
+    ],
+    "onPremisesExtensionAttributes": {
+        "extensionAttribute1": null,
+        "extensionAttribute2": null,
+        "extensionAttribute3": "value3"
+    }
+}
